@@ -41,6 +41,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [backendStatus, setBackendStatus] = useState<'checking' | 'connected' | 'unavailable'>('checking')
+  const [analysisRun, setAnalysisRun] = useState(0)
   const analyzerRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
@@ -56,7 +57,7 @@ function App() {
     const textToAnalyze = (override ?? message).trim()
     if (!textToAnalyze) return
     setLoading(true); setError(''); setAnalysis(null); setCheckedMessage(textToAnalyze)
-    try { const response = await fetch(`${API_BASE_URL}/api/analyze`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: textToAnalyze }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error || 'The message could not be analyzed.'); setAnalysis(data) }
+    try { const response = await fetch(`${API_BASE_URL}/api/analyze`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: textToAnalyze }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error || 'The message could not be analyzed.'); setAnalysis(data); setAnalysisRun((run) => run + 1) }
     catch (caught) { setError(caught instanceof Error ? caught.message : 'The analysis service is unavailable.') } finally { setLoading(false) }
   }
 
@@ -176,7 +177,7 @@ function App() {
       {error && <p className="error-message" role="alert">{error} Please try again in a moment.</p>}
 
       {analysis && (
-        <section className="results" aria-live="polite">
+        <section className="results results-reveal" aria-live="polite" key={analysisRun}>
           <div className="result-header">
             <div>
               <span className="eyebrow">ANALYSIS RESULT</span>
@@ -211,8 +212,8 @@ function App() {
             <h3>RULE-BASED SIGNALS</h3>
             {analysis.signals.length
               ? <div className="signal-cards">
-                  {analysis.signals.map((signal) => (
-                    <div className="signal-card" key={signal.key}>
+                  {analysis.signals.map((signal, index) => (
+                    <div className="signal-card signal-reveal" key={signal.key} style={{ animationDelay: `${index * 70}ms` }}>
                       <span className="signal-check">✓</span>
                       <div><strong>{signal.label}</strong><p>{SIGNAL_DESCRIPTIONS[signal.key] || signal.label}</p></div>
                     </div>

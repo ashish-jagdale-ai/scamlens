@@ -550,3 +550,35 @@ footer { color: #8b98ad; }
   border-radius: 18px;
 }
 .signal-cards { margin-top: 4px; }
+
+/* ── v4: two targeted entrance animations only (theme unchanged) ── */
+/* 1. Hero + branding: one-time fade-and-rise, restrained, no glow, no particles, no continuous motion. */
+@keyframes scamlens-fade-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.topbar .brand { animation: scamlens-fade-rise 0.6s ease both; }
+.hero-shield { animation: scamlens-fade-rise 0.6s ease 0.05s both; }
+.hero .hack-badge { animation: scamlens-fade-rise 0.6s ease 0.1s both; }
+.hero .eyebrow { animation: scamlens-fade-rise 0.6s ease 0.15s both; }
+.hero h1 { animation: scamlens-fade-rise 0.6s ease 0.2s both; }
+.hero p { animation: scamlens-fade-rise 0.6s ease 0.3s both; }
+
+/* 2. Results reveal: panel fades + rises once per successful analysis (keyed to analysisRun in App.tsx, so it replays on each new analysis). Signals stagger via inline animation-delay. No API delay, no fake progress. */
+@keyframes scamlens-results-reveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scamlens-signal-reveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.results-reveal { animation: scamlens-results-reveal 0.45s ease both; }
+.signal-card.signal-reveal { animation: scamlens-signal-reveal 0.4s ease both; }
+
+/* Accessibility: disable nonessential animation when requested. */
+@media (prefers-reduced-motion: reduce) {
+  .topbar .brand, .hero-shield, .hero .hack-badge, .hero .eyebrow, .hero h1, .hero p,
+  .results-reveal, .signal-card.signal-reveal { animation: none; }
+  .risk-meter-fill { transition: none; }
+}
