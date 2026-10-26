@@ -78,6 +78,19 @@ button { cursor: pointer; }
   text-align: center;
 }
 
+.hack-badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid #3a4d64;
+  background: #14211f;
+  color: #a5f3c5;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
 .eyebrow, .examples h3 {
   color: #9ba9c1;
   font-size: 10px;
@@ -152,6 +165,7 @@ button { cursor: pointer; }
 
 /* ── Analyzer ── */
 .analyzer {
+  scroll-margin-top: 16px;
   padding: 27px;
   background: #111827;
   border: 1px solid #283449;
@@ -231,10 +245,10 @@ textarea::placeholder { color: #66748b; }
 .analyze-button {
   border: 0;
   border-radius: 10px;
-  padding: 13px 18px;
+  padding: 16px 26px;
   background: #a5f3c5;
   color: #10261a;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   transition: transform 0.2s, opacity 0.2s;
 }
@@ -254,12 +268,13 @@ textarea::placeholder { color: #66748b; }
 .privacy-note span { color: #a5f3c5; }
 
 /* ── Sample cards ── */
-.examples { padding: 38px 0 50px; }
+.examples { padding: 10px 0 28px; }
+.examples-sub { margin: -6px 0 15px; color: #94a1b7; font-size: 12px; line-height: 1.6; }
 .examples h3 { margin-bottom: 15px; }
 
-.sample-list { display: grid; gap: 9px; }
+.sample-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
-.sample-list button {
+.sample-list button, .sample-card {
   display: flex;
   align-items: center;
   gap: 13px;
@@ -440,6 +455,11 @@ footer {
 }
 
 /* ── Mobile ── */
+@media (max-width: 700px) {
+  .sample-list { grid-template-columns: 1fr; }
+  .signal-cards { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 540px) {
   .hero { padding-top: 28px; }
   .hero h1 { letter-spacing: -2px; }
@@ -464,3 +484,69 @@ footer {
 
   .sample-hint { display: none; }
 }
+
+.sample-card { flex-direction: column; align-items: flex-start; }
+.sample-card .sample-hint { margin-left: 0; }
+.backend-status { margin: 0 0 16px; padding: 9px 12px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+.backend-status.connected { color: #a5f3c5; background: #10251e; border: 1px solid #234e3b; }
+.backend-status.checking { color: #c2cde0; background: #111827; border: 1px solid #283449; }
+.backend-status.unavailable { color: #f6d58b; background: #3a2e14; border: 1px solid #6b5620; }
+.checked-message { margin-top: 20px; padding: 16px; background: #0a101c; border: 1px solid #344158; border-radius: 12px; }
+.checked-message h3 { margin: 0 0 8px; color: #9ba9c1; font-size: 10px; letter-spacing: 1.5px; }
+.checked-message p { margin: 0; color: #e8edf6; font-size: 13px; line-height: 1.7; }
+.signal-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.signal-card { display: flex; gap: 10px; padding: 14px; background: #0a101c; border: 1px solid #283449; border-radius: 12px; box-shadow: 0 8px 24px #0003; }
+.signal-card .signal-check { color: #a5f3c5; font-weight: 800; }
+.signal-card strong { font-size: 12px; }
+.signal-card p { margin: 5px 0 0; color: #b9c5d7; font-size: 12px; line-height: 1.6; }
+.guidance { background: #10251e; border: 1px solid #234e3b; border-radius: 14px; padding: 16px; }
+.guidance-final { font-weight: 700; color: #a5f3c5; }
+footer a { color: #a5f3c5; }
+footer { flex-wrap: wrap; }
+
+/* ── Premium security-product refinement (same navy + mint theme) ── */
+body {
+  background:
+    radial-gradient(ellipse at 50% -5%, #16324a 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 0%, #0f2e2a 0%, transparent 35%),
+    #070b14;
+}
+.topbar { border-bottom: 1px solid #1f2e44; }
+.brand-icon { background: linear-gradient(135deg, #c8f7dd, #7edca8); box-shadow: 0 4px 16px #7edca822; }
+.hero-scan { margin-top: 14px; color: #7edca8; font-size: 11px; letter-spacing: 1.6px; font-weight: 700; text-transform: uppercase; }
+.how-step { background: #0e1626; box-shadow: 0 6px 20px #0002; }
+.analyzer { background: #0e1626; border-color: #26364f; box-shadow: 0 24px 60px #0004; }
+textarea { background: #070d18; border-color: #2c3f5c; }
+textarea:focus { border-color: #7edca8; box-shadow: 0 0 0 3px #7edca833; }
+button:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid #a5f3c5; outline-offset: 3px; }
+.analyze-button { box-shadow: 0 8px 24px #7edca833; transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s; }
+.analyze-button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 12px 28px #7edca844; }
+.sample-card { background: #0e1626; border-color: #26364f; box-shadow: 0 8px 24px #0002; }
+.sample-card:hover { border-color: #7edca8; box-shadow: 0 12px 28px #0003; }
+.results { background: #0d1524; border-color: #2c3f5c; box-shadow: 0 24px 60px #0004; }
+.empty-state { color: #94a1b7; background: #0e1626; border: 1px dashed #2c3f5c; padding: 13px 16px; border-radius: 12px; font-size: 12px; line-height: 1.6; }
+.risk-badge { letter-spacing: 0.3px; box-shadow: 0 4px 14px #0003; }
+footer { color: #8b98ad; }
+@media (max-width: 540px) {
+  .hero-scan { letter-spacing: 1px; }
+}
+
+/* ── Dribbble-style cues only: scan ring, layered cards, prominent mint button ── */
+.hero-shield {
+  width: 76px; height: 76px; margin: 0 auto 18px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: #a5f3c5;
+  background: radial-gradient(circle at 50% 35%, #16324a, #0a1424 70%);
+  border: 1px solid #3f6a5a;
+  box-shadow: 0 0 0 8px #7edca814, 0 0 0 16px #7edca808, 0 16px 32px #0004;
+}
+.analyze-button {
+  padding: 17px 30px; font-size: 15px; letter-spacing: 0.2px;
+  background: linear-gradient(135deg, #c8f7dd, #7edca8);
+  box-shadow: 0 10px 28px #7edca840;
+}
+.analyzer, .results, .sample-card, .signal-card, .checked-message {
+  border-radius: 18px;
+}
+.signal-cards { margin-top: 4px; }
